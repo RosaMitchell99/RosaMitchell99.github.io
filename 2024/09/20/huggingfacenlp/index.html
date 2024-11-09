@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"hide","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="关于huggingface nlp课的笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hugging Face NLP course">
+<meta property="og:url" content="http://example.com/2024/09/20/huggingfacenlp/index.html">
+<meta property="og:site_name" content="ikuyo!">
+<meta property="og:description" content="关于huggingface nlp课的笔记。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/..%5Cimages%5Chuggingfacenlp-transformerhistory.png">
+<meta property="og:image" content="http://example.com/..%5Cimages%5Chuggingfacenlp-transformerstructure.png">
+<meta property="og:image" content="http://example.com/..%5Cimages%5Chuggingfacenlp-pipelinestructure.png">
+<meta property="article:published_time" content="2024-09-20T02:06:36.673Z">
+<meta property="article:modified_time" content="2024-09-20T08:50:59.407Z">
+<meta property="article:author" content="Night Leila">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/..%5Cimages%5Chuggingfacenlp-transformerhistory.png">
+
+
+<link rel="canonical" href="http://example.com/2024/09/20/huggingfacenlp/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/09/20/huggingfacenlp/","path":"2024/09/20/huggingfacenlp/","title":"Hugging Face NLP course"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hugging Face NLP course | ikuyo!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ikuyo!</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a></li><li class="menu-item menu-item-literature"><a href="/categories/literature/" rel="section"><i class="lit fa-fw"></i>书评</a></li><li class="menu-item menu-item-anime"><a href="/anime/" rel="section"><i class="anime fa-fw"></i>动漫</a></li><li class="menu-item menu-item-blogs"><a href="/categories/blogs/" rel="section"><i class="blogs fa-fw"></i>博客</a></li><li class="menu-item menu-item-cats"><a href="/categories/cats/" rel="section"><i class="cats fa-fw"></i>来点猫猫</a></li><li class="menu-item menu-item-poems"><a href="/categories/poems/" rel="section"><i class="poems fa-fw"></i>原创诗歌</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Transformer-models"><span class="nav-number">1.</span> <span class="nav-text">Transformer models</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#transformer%E7%9A%84%E5%8A%9F%E8%83%BD%E5%8F%8Ahuggingface-API"><span class="nav-number">1.1.</span> <span class="nav-text">transformer的功能及huggingface API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transformer%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%8E%86%E5%8F%B2%E5%92%8C%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">Transformer模型的历史和结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Hugging-Face-Transformers"><span class="nav-number">2.</span> <span class="nav-text">Using Hugging Face Transformers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pipeline%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">pipeline的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#tokenizer"><span class="nav-number">2.1.1.</span> <span class="nav-text">tokenizer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#model"><span class="nav-number">2.1.2.</span> <span class="nav-text">model</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Etokenizers"><span class="nav-number">2.2.</span> <span class="nav-text">关于tokenizers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%A4%84%E7%90%86%E5%A4%9A%E4%B8%AA%E5%BA%8F%E5%88%97%EF%BC%88%E6%89%B9%E5%A4%84%E7%90%86%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">同时处理多个序列（批处理）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fine-tuning-a-pretrained-model"><span class="nav-number">3.</span> <span class="nav-text">Fine-tuning a pretrained model</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8Trainer-API%E8%BF%9B%E8%A1%8C%E5%BE%AE%E8%B0%83"><span class="nav-number">3.2.</span> <span class="nav-text">用Trainer API进行微调</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Night Leila"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Night Leila</p>
+  <div class="site-description" itemprop="description">一蓑烟雨任平生。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:3354474428@gmail.com" title="E-Mail → mailto:3354474428@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/09/20/huggingfacenlp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Night Leila">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ikuyo!">
+      <meta itemprop="description" content="一蓑烟雨任平生。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hugging Face NLP course | ikuyo!">
+      <meta itemprop="description" content="关于huggingface nlp课的笔记。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hugging Face NLP course
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-09-20 10:06:36 / 修改时间：16:50:59" itemprop="dateCreated datePublished" datetime="2024-09-20T10:06:36+08:00">2024-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/blogs/" itemprop="url" rel="index"><span itemprop="name">blogs</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">关于huggingface nlp课的笔记。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="Transformer-models"><a href="#Transformer-models" class="headerlink" title="Transformer models"></a>Transformer models</h3><h4 id="transformer的功能及huggingface-API"><a href="#transformer的功能及huggingface-API" class="headerlink" title="transformer的功能及huggingface API"></a>transformer的功能及huggingface API</h4><p>Transformer的功能有：  </p>
+<ol>
+<li>特征提取 feature-extraction：序列-&gt;特征向量  </li>
+<li>填空 fill-mask：有mask的序列-&gt;完整序列  </li>
+<li>实体识别 NER(named entity recognition)：序列-&gt;序列中实体的字典  </li>
+<li>回答问题 question-answering：问题&amp;上下文-&gt;答案  </li>
+<li>情感分析 sentiment-analysis：序列-&gt;情感标签  </li>
+<li>概括 summarization：长文-&gt;短文</li>
+<li>文本生成 text-generation：序列-&gt;扩展序列</li>
+<li>翻译translation：序列-&gt;翻译序列</li>
+<li>无微调分类 zero-shot-classification：序列-&gt;类别概率（这个类别在训练过程中没有给出，不需要微调就可以进行分类，所以叫zero-shot）</li>
+</ol>
+<p>huggingface提供了很简单的API，叫pipeline()函数。调用示例如下：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"></span><br><span class="line">classifier = pipeline(<span class="string">&quot;sentiment-analysis&quot;</span>) <span class="comment">#指定pipeline的类型</span></span><br><span class="line">classifier(<span class="string">&quot;I&#x27;ve been waiting for a HuggingFace course my whole life.&quot;</span>) <span class="comment">#直接调用</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Transformer模型的历史和结构"><a href="#Transformer模型的历史和结构" class="headerlink" title="Transformer模型的历史和结构"></a>Transformer模型的历史和结构</h4><p><img src="/..%5Cimages%5Chuggingfacenlp-transformerhistory.png"></p>
+<p>Transformer模型的提出在2017年，原本是用于翻译任务的。<br>模型可以分成三类：  </p>
+<ol>
+<li>GPT-like(auto-regressive)：自回归模型，仅decoder，仅从已有的信息推出后面的信息。  </li>
+<li>BERT-like(auto-encoding)：自编码模型，仅encoder，从整个序列得到一个编码，优化编码的参数。</li>
+<li>BART&#x2F;T5-like(sequence-to-sequence)：序列到序列模型，encoder-decoder。</li>
+</ol>
+<p>“能不能看到整个序列”是encoder和decoder的主要差异。 </p>
+<p>以下是Transformer模型的基础架构图：<br><img src="/..%5Cimages%5Chuggingfacenlp-transformerstructure.png"></p>
+<p>区分几个术语：</p>
+<ol>
+<li>architecture 架构：指模型的骨架，里面有几层、每层是如何构建的。 </li>
+<li>checkpoint 检查点：指模型的参数。</li>
+<li>model 模型：包含关于模型一切信息的概念。</li>
+</ol>
+<p>Transformer模型是一个语言模型，而且是一个大模型。从头开始训练需要大量的数据、算力、时间，甚至还有巨大的碳排放。所以我们一般都是在预训练模型上进行微调。<br>但这也存在一些问题：不同的模型会因为投入的数据的语言、数据质量、数据分布等因素，存在一些bias（偏差，甚至是偏见）。比如在英语语料上训练的模型可能在其他语言上表现不好。  </p>
+<h3 id="Using-Hugging-Face-Transformers"><a href="#Using-Hugging-Face-Transformers" class="headerlink" title="Using Hugging Face Transformers"></a>Using Hugging Face Transformers</h3><h4 id="pipeline的原理"><a href="#pipeline的原理" class="headerlink" title="pipeline的原理"></a>pipeline的原理</h4><p><img src="/..%5Cimages%5Chuggingfacenlp-pipelinestructure.png"></p>
+<p>pipeline内部有三步处理：tokenizer(preprocessing),model,postprocessing。<br>如图，输入序列先被转为id，通过模型得到logits(原始的预测值)，再经过归一化等操作得到预测值。  </p>
+<h5 id="tokenizer"><a href="#tokenizer" class="headerlink" title="tokenizer"></a>tokenizer</h5><p>tokenizer的工作是：  </p>
+<ol>
+<li>将输入序列分为有意义的小片段（单词、subwords、字符等方式）  </li>
+<li>把每个token转成一个唯一的ID。</li>
+<li>加上一些特殊符号，使之满足模型输入的格式（比如填充、开始和结束符）</li>
+</ol>
+<p>tokenizer的使用例：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer</span><br><span class="line"></span><br><span class="line">checkpoint = <span class="string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span>  <span class="comment">#注意，每个模型需要的tokenize方式是不同的，必须对应好</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(checkpoint)</span><br><span class="line"></span><br><span class="line">raw_inputs = [</span><br><span class="line">    <span class="string">&quot;I&#x27;ve been waiting for a HuggingFace course my whole life.&quot;</span>,</span><br><span class="line">    <span class="string">&quot;I hate this so much!&quot;</span>,</span><br><span class="line">]</span><br><span class="line">inputs = tokenizer(raw_inputs, padding=<span class="literal">True</span>, truncation=<span class="literal">True</span>, return_tensors=<span class="string">&quot;pt&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(inputs)</span><br></pre></td></tr></table></figure>
+
+<p>得到的结果是一个这样的字典，包含tokenize之后的序列的信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&#x27;input_ids&#x27;</span>: tensor([</span><br><span class="line">        [  <span class="number">101</span>,  <span class="number">1045</span>,  <span class="number">1005</span>,  <span class="number">2310</span>,  <span class="number">2042</span>,  <span class="number">3403</span>,  <span class="number">2005</span>,  <span class="number">1037</span>, <span class="number">17662</span>, <span class="number">12172</span>, <span class="number">2607</span>,  <span class="number">2026</span>,  <span class="number">2878</span>,  <span class="number">2166</span>,  <span class="number">1012</span>,   <span class="number">102</span>],</span><br><span class="line">        [  <span class="number">101</span>,  <span class="number">1045</span>,  <span class="number">5223</span>,  <span class="number">2023</span>,  <span class="number">2061</span>,  <span class="number">2172</span>,   <span class="number">999</span>,   <span class="number">102</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>,     <span class="number">0</span>]</span><br><span class="line">    ]), </span><br><span class="line">    <span class="string">&#x27;attention_mask&#x27;</span>: tensor([</span><br><span class="line">        [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">        [<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于上面一些内容的说明：  </p>
+<ol>
+<li>padding：由于模型要把批次输入的序列当成一个tensor矩阵送进去，但是序列长度各不相等，我们用padding将所有句子都填充到那一个batch里最大的长度即可。  </li>
+<li>truncation：如果输入的序列超过了模型所允许的最大长度，就进行截断。</li>
+<li>return_tensors：指定返回的tensor类型，这里选择pytorch。</li>
+<li>attention mask：告诉模型哪些位置是padding，哪些位置是实际内容。</li>
+</ol>
+<h5 id="model"><a href="#model" class="headerlink" title="model"></a>model</h5><p>得到可以放进模型的表示之后，我们创建模型并输入数据。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModel</span><br><span class="line"></span><br><span class="line">checkpoint = <span class="string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span></span><br><span class="line">model = AutoModel.from_pretrained(checkpoint)</span><br><span class="line"></span><br><span class="line">outputs = model(**inputs)</span><br><span class="line"><span class="built_in">print</span>(outputs.last_hidden_state.shape)</span><br></pre></td></tr></table></figure>
+<p>使用AutoModel类。还有其他分类更精细的类也可以。<br>注意这里的模型是不包含模型头(head)的。相当于只是将原来的输入编写成了特征向量，还没有具体任务操作。所以，上面得到的输出tensor的维度为:(batch_size, sequence_length, hidden_size)（hidden_size是表示每个Token所用的特征向量的维度。）  </p>
+<p>为了进行分类等任务，我们需要选用对应的head。比如：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModelForSequenceClassification</span><br><span class="line"></span><br><span class="line">checkpoint = <span class="string">&quot;distilbert-base-uncased-finetuned-sst-2-english&quot;</span></span><br><span class="line">model = AutoModelForSequenceClassification.from_pretrained(checkpoint)</span><br><span class="line">outputs = model(**inputs)</span><br></pre></td></tr></table></figure>
+<p>这样就能得到模型的logits和预测输出了。<br>模型的具体用法和属性可以阅读手册。  </p>
+<h4 id="关于tokenizers"><a href="#关于tokenizers" class="headerlink" title="关于tokenizers"></a>关于tokenizers</h4><p>主要有word-based,character-based和subword-based三种tokenize方式。<br>其中word-based比较常用，但是容易出现单词太多导致ID量太多、有些相似的单词被赋予两个不同ID的浪费现象。<br>character-based的ID量就比较少，但是表示序列会变长，而且单个字母会失去语义信息。<br>subword-based是二者的结合，给简单单词单独的ID，把长单词拆分(比如wondering拆分成wonder-ing)，重复利用一些ID，同时保留了语义信息。  </p>
+<p>tokenize和token_to_id是分为两步做的，合起来称为encode。decode方法也有一个调用接口。  </p>
+<h4 id="同时处理多个序列（批处理）"><a href="#同时处理多个序列（批处理）" class="headerlink" title="同时处理多个序列（批处理）"></a>同时处理多个序列（批处理）</h4><p>模型默认处理的是多个序列。即，输入向量至少有两个维度。</p>
+<h3 id="Fine-tuning-a-pretrained-model"><a href="#Fine-tuning-a-pretrained-model" class="headerlink" title="Fine-tuning a pretrained model"></a>Fine-tuning a pretrained model</h3><h4 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h4><p>使用huggingface datasets library.<br>数据处理分为导入、前处理两个部分。<br>首先导入数据集：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"></span><br><span class="line">raw_datasets = load_dataset(<span class="string">&quot;glue&quot;</span>, <span class="string">&quot;mrpc&quot;</span>)</span><br><span class="line">raw_datasets</span><br></pre></td></tr></table></figure>
+<p>得到输出为：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">DatasetDict(&#123;</span><br><span class="line">    train: Dataset(&#123;</span><br><span class="line">        features: [<span class="string">&#x27;sentence1&#x27;</span>, <span class="string">&#x27;sentence2&#x27;</span>, <span class="string">&#x27;label&#x27;</span>, <span class="string">&#x27;idx&#x27;</span>],</span><br><span class="line">        num_rows: <span class="number">3668</span></span><br><span class="line">    &#125;)</span><br><span class="line">    validation: Dataset(&#123;</span><br><span class="line">        features: [<span class="string">&#x27;sentence1&#x27;</span>, <span class="string">&#x27;sentence2&#x27;</span>, <span class="string">&#x27;label&#x27;</span>, <span class="string">&#x27;idx&#x27;</span>],</span><br><span class="line">        num_rows: <span class="number">408</span></span><br><span class="line">    &#125;)</span><br><span class="line">    test: Dataset(&#123;</span><br><span class="line">        features: [<span class="string">&#x27;sentence1&#x27;</span>, <span class="string">&#x27;sentence2&#x27;</span>, <span class="string">&#x27;label&#x27;</span>, <span class="string">&#x27;idx&#x27;</span>],</span><br><span class="line">        num_rows: <span class="number">1725</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>可以看出这个datasetdict包含了一个数据集划分好的三部分。由于MRPC任务是确定两句句子是否同义，每个样本是一个句子对。<br>指定是训练、验证还是测试数据集之后，就可以用下标去访问每个样本。<br>features属性说明了每个元素的含义。  </p>
+<p>这里有个特殊点：句子对如何处理？<br>选用一起tokenize的方式，而不是分开。tokenizer会将句子连在一起，并用特殊符号标识。得到结果中的token_type_ids表示出这个token来自哪句句子。  </p>
+<p>为了tokenize整个数据集，更好的方式是用datasets的map方法。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">tokenize_function</span>(<span class="params">example</span>):</span><br><span class="line">    <span class="keyword">return</span> tokenizer(example[<span class="string">&quot;sentence1&quot;</span>], example[<span class="string">&quot;sentence2&quot;</span>], truncation=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">tokenized_datasets = raw_datasets.<span class="built_in">map</span>(tokenize_function, batched=<span class="literal">True</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其中example类似于dataset[‘train’]。<br>这种方法会将批量的数据一起通过tokenizer处理，速度快。  </p>
+<p>处理多批次还要考虑Padding，我们希望每个batch中所有句子被填充到那一个batch里最大的长度，而不是全局的最大长度。这种方法叫动态填充dynamic padding.<br>动态填充需要的函数叫做collate function，在创建dataloader时被传递。调用方法为：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> DataCollatorWithPadding</span><br><span class="line"></span><br><span class="line">data_collator = DataCollatorWithPadding(tokenizer=tokenizer)</span><br><span class="line">batch = data_collator(samples)</span><br></pre></td></tr></table></figure>
+<p>注意要指定tokenizer.<br>在tokenize之后，把结果传给data_collator处理，就可以得到填充后的batch了。  </p>
+<h4 id="用Trainer-API进行微调"><a href="#用Trainer-API进行微调" class="headerlink" title="用Trainer API进行微调"></a>用Trainer API进行微调</h4><p>关于模型我们需要准备模型架构、超参数、优化器、损失、训练器等等。<br>参数可以用TrainingArguments类定义：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> TrainingArguments</span><br><span class="line"></span><br><span class="line">training_args = TrainingArguments(<span class="string">&quot;test-trainer&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>定义模型是AutoModel类的细分，送入参数和需要的label数：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> AutoModelForSequenceClassification</span><br><span class="line"></span><br><span class="line">model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<p>由于在训练过程中我们需要实时观测模型的效果，这里定义一个metrics去衡量。数据集默认的是accuracy.  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> evaluate</span><br><span class="line"></span><br><span class="line">metric = evaluate.load(<span class="string">&quot;glue&quot;</span>, <span class="string">&quot;mrpc&quot;</span>)</span><br><span class="line">metric.compute(predictions=preds, references=predictions.label_ids)</span><br></pre></td></tr></table></figure>
+<p>注意要把predictions处理成标签的形式。<br>为了将评估集成到训练过程中，需要改两个地方：在训练参数里设定evalutaion_strategy&#x3D;”epoch”，表示每个epoch评估一次；在trainer类实例化时传入compute_metrics:  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">compute_metrics</span>(<span class="params">eval_preds</span>):    <span class="comment">#输入模型的输出，输出metric类计算出的评估结果</span></span><br><span class="line">    metric = evaluate.load(<span class="string">&quot;glue&quot;</span>, <span class="string">&quot;mrpc&quot;</span>)</span><br><span class="line">    logits, labels = eval_preds</span><br><span class="line">    predictions = np.argmax(logits, axis=-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> metric.compute(predictions=predictions, references=labels)</span><br><span class="line"></span><br><span class="line">trainer = Trainer(</span><br><span class="line">    model,</span><br><span class="line">    training_args,</span><br><span class="line">    train_dataset=tokenized_datasets[<span class="string">&quot;train&quot;</span>],</span><br><span class="line">    eval_dataset=tokenized_datasets[<span class="string">&quot;validation&quot;</span>],</span><br><span class="line">    data_collator=data_collator,</span><br><span class="line">    tokenizer=tokenizer,</span><br><span class="line">    compute_metrics=compute_metrics,</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>然后再调用trainer.train()就可以进行训练了。<br>注意，如果想写一个完整的训练过程而不使用Trainer类，需要补上Trainer自动进行的一些处理：  </p>
+<ol>
+<li>把batch中模型输入不需要的列删掉（比如原来的字符串sentence1,sentence2）</li>
+<li>把label重命名为labels</li>
+<li>把数据集的格式设置为pytorch.</li>
+</ol>
+<p>可以使用Accelerate类自动加速训练。<br>一般来说我们需要确定设备、手动把模型和相关的数据放到GPU上以调用GPU训练。<br>具体的使用方法是：<br>先定义一个accelerator实例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> accelerate <span class="keyword">import</span> Accelerator</span><br><span class="line"> </span><br><span class="line">accelerator = Accelerator()</span><br></pre></td></tr></table></figure>
+<p>然后用prepare API把模型及其要用到的东西都放上GPU：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_dataloader, eval_dataloader, model, optimizer = accelerator.prepare(</span><br><span class="line">    train_dataloader, eval_dataloader, model, optimizer</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>最后把训练循环中的loss.backward()改成accelerator.backward(loss).<br>有了这些就可以把所有to(device)这种东西省略掉了。  </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/09/14/Titanic/" rel="prev" title="Kaggle-Titanic">
+                  <i class="fa fa-angle-left"></i> Kaggle-Titanic
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/10/08/%E6%9E%95%E8%8D%89%E5%AD%90/" rel="next" title="《枕草子》[日]清少纳言（译者：周作人）">
+                  《枕草子》[日]清少纳言（译者：周作人） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+

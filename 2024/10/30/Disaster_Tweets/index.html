@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"hide","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="NLP入门项目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kaggle-Disaster Tweets(NLP)">
+<meta property="og:url" content="http://example.com/2024/10/30/Disaster_Tweets/index.html">
+<meta property="og:site_name" content="ikuyo!">
+<meta property="og:description" content="NLP入门项目。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-30T03:35:25.580Z">
+<meta property="article:modified_time" content="2024-11-05T03:16:23.872Z">
+<meta property="article:author" content="Night Leila">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/10/30/Disaster_Tweets/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/30/Disaster_Tweets/","path":"2024/10/30/Disaster_Tweets/","title":"Kaggle-Disaster Tweets(NLP)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kaggle-Disaster Tweets(NLP) | ikuyo!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ikuyo!</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a></li><li class="menu-item menu-item-literature"><a href="/categories/literature/" rel="section"><i class="lit fa-fw"></i>书评</a></li><li class="menu-item menu-item-anime"><a href="/anime/" rel="section"><i class="anime fa-fw"></i>动漫</a></li><li class="menu-item menu-item-blogs"><a href="/categories/blogs/" rel="section"><i class="blogs fa-fw"></i>博客</a></li><li class="menu-item menu-item-cats"><a href="/categories/cats/" rel="section"><i class="cats fa-fw"></i>来点猫猫</a></li><li class="menu-item menu-item-poems"><a href="/categories/poems/" rel="section"><i class="poems fa-fw"></i>原创诗歌</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Night Leila"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Night Leila</p>
+  <div class="site-description" itemprop="description">一蓑烟雨任平生。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:3354474428@gmail.com" title="E-Mail → mailto:3354474428@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/30/Disaster_Tweets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Night Leila">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ikuyo!">
+      <meta itemprop="description" content="一蓑烟雨任平生。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kaggle-Disaster Tweets(NLP) | ikuyo!">
+      <meta itemprop="description" content="NLP入门项目。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kaggle-Disaster Tweets(NLP)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-10-30 11:35:25" itemprop="dateCreated datePublished" datetime="2024-10-30T11:35:25+08:00">2024-10-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-11-05 11:16:23" itemprop="dateModified" datetime="2024-11-05T11:16:23+08:00">2024-11-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/blogs/" itemprop="url" rel="index"><span itemprop="name">blogs</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">NLP入门项目。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>做这个项目体验一下NLP任务的一个流程。</p>
+<p>还是正常地导入数据、处理数据。<br>注意这里因为location不是自动生成，而是用户输入的数据，数据很脏，包含太多的唯一值，不能作为一个feature！<br>keyword可以。  </p>
+<p>·元特征的概念 meta-feature<br>比如关于灾难的tweets可能会用更正式的语言写。<br>可以考虑到的元特征有：词数、唯一词数、url数量、单词平均长度、标点数、特殊符号等等。  </p>
+<p>·注意要看一下训练集里标签的分布，如果不均衡需要进行分层、抽样。  </p>
+<p>·N-gram<br>（文章里好像只是看了一下n-gram，并没有用它去提高训练精度？）<br>将一个句子分解为tokens的技术，N表示多少元素作为一组。（注意这里的元素是一个单词这样）<br>通过分析N-gram的频率，可以了解句子的结构和内容相关信息。<br>具体写法如下（作拆分）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用N-gram研究训练集</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_ngrams</span>(<span class="params">text,n_gram=<span class="number">1</span></span>):</span><br><span class="line">    token=[token <span class="keyword">for</span> token <span class="keyword">in</span> text.lower().split(<span class="string">&#x27; &#x27;</span>) <span class="keyword">if</span> token != <span class="string">&#x27;&#x27;</span> <span class="keyword">if</span> token <span class="keyword">not</span> <span class="keyword">in</span> STOPWORDS]</span><br><span class="line">    ngrams=<span class="built_in">zip</span>(*[token[i:] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n_gram)])</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27; &#x27;</span>.join(ngram) <span class="keyword">for</span> ngram <span class="keyword">in</span> ngrams]</span><br><span class="line"></span><br><span class="line">N=<span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#n=1</span></span><br><span class="line">disaster_unigrams=defaultdict(<span class="built_in">int</span>)</span><br><span class="line">nondisaster_unigrams=defaultdict(<span class="built_in">int</span>)</span><br><span class="line"><span class="keyword">for</span> tweet <span class="keyword">in</span> df_train[DISASTER_TWEETS][<span class="string">&#x27;text&#x27;</span>]:</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> generate_ngrams(tweet):</span><br><span class="line">        disaster_unigrams[word]+=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> tweet <span class="keyword">in</span> df_train[~DISASTER_TWEETS][<span class="string">&#x27;text&#x27;</span>]:</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> generate_ngrams(tweet):</span><br><span class="line">        nondisaster_unigrams[word]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">df_disaster_unigrams=pd.DataFrame(<span class="built_in">sorted</span>(disaster_unigrams.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])[::-<span class="number">1</span>])</span><br><span class="line">df_nondisaster_unigrams=pd.DataFrame(<span class="built_in">sorted</span>(nondisaster_unigrams.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])[::-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#n=2</span></span><br><span class="line">disaster_bigrams=defaultdict(<span class="built_in">int</span>)</span><br><span class="line">nondisaster_bigrams=defaultdict(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> tweet <span class="keyword">in</span> df_train[DISASTER_TWEETS][<span class="string">&#x27;text&#x27;</span>]:</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> generate_ngrams(tweet,n_gram=<span class="number">2</span>):</span><br><span class="line">        disaster_bigrams[word]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> tweet <span class="keyword">in</span> df_train[~DISASTER_TWEETS][<span class="string">&#x27;text&#x27;</span>]:</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> generate_ngrams(tweet,n_gram=<span class="number">2</span>):</span><br><span class="line">        nondisaster_bigrams[word]+=<span class="number">1</span></span><br><span class="line">        </span><br><span class="line">df_disaster_bigrams=pd.DataFrame(<span class="built_in">sorted</span>(disaster_bigrams.items(),key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>])[::-<span class="number">1</span>])</span><br><span class="line">df_nondisaster_bigrams=pd.DataFrame(<span class="built_in">sorted</span>(nondisaster_bigrams.items(),key=<span class="keyword">lambda</span> x:x[-<span class="number">1</span>])[::-<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#n=3 同理</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#显示unigram</span></span><br><span class="line">fig, axes = plt.subplots(ncols=<span class="number">2</span>, figsize=(<span class="number">18</span>, <span class="number">50</span>), dpi=<span class="number">100</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line"></span><br><span class="line">sns.barplot(y=df_disaster_unigrams[<span class="number">0</span>].values[:N], x=df_disaster_unigrams[<span class="number">1</span>].values[:N], ax=axes[<span class="number">0</span>], color=<span class="string">&#x27;red&#x27;</span>)</span><br><span class="line">sns.barplot(y=df_nondisaster_unigrams[<span class="number">0</span>].values[:N], x=df_nondisaster_unigrams[<span class="number">1</span>].values[:N], ax=axes[<span class="number">1</span>], color=<span class="string">&#x27;green&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>):</span><br><span class="line">    axes[i].spines[<span class="string">&#x27;right&#x27;</span>].set_visible(<span class="literal">False</span>)</span><br><span class="line">    axes[i].set_xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    axes[i].set_ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    axes[i].tick_params(axis=<span class="string">&#x27;x&#x27;</span>, labelsize=<span class="number">13</span>)</span><br><span class="line">    axes[i].tick_params(axis=<span class="string">&#x27;y&#x27;</span>, labelsize=<span class="number">13</span>)</span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">f&#x27;Top <span class="subst">&#123;N&#125;</span> most common unigrams in Disaster Tweets&#x27;</span>, fontsize=<span class="number">15</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">f&#x27;Top <span class="subst">&#123;N&#125;</span> most common unigrams in Non-disaster Tweets&#x27;</span>, fontsize=<span class="number">15</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol>
+<li>unigram<br>可以发现大部分tweet的unigram里频率最高的是数字、连词，最好先把这些过滤掉再排行，这些词并没有给出太多信息。<br>关于灾难的tweet中，灾难的专有名词出现频率高；反之动词频率高，因为非灾害的tweet口语化程度高。  </li>
+<li>bigram和trigram同理。灾害推特中含有更多描述灾害的词。</li>
+</ol>
+<p>·Embeddinng<br>这里作Embedding需要考虑实际情况，不直接使用预训练模型的，而是通过数实际训练和测试集里的词汇来创建词汇。<br>（但这样在新的文本中不会有太多unknown吗？）  </p>
+<p>·文本清理<br>为了让所有单词都有embedding，需要被清理的包含标点符号、补全缩写、url、补全代指、修正拼错的词、近义词替代、用户名和hashtag。<br>注意一个点，作者在对原数据集操作的时候，都保留了原始数据，在df上重新开一列存放处理后的结果。这是一个好习惯。  </p>
+<p>·错误的标签<br>训练集中有相同的tweet被打上不同标签党的情况，需要修改。  </p>
+<p>·metrics<br>包括accuracy,precision&amp;recall,f1 score.<br>注意后面三个值必须是在全部的training set上计算才有意义的！<br>这里用到了callback的子类对象，把所有metrics都集成进去。（包括一个epoch的训练）  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ClassificationReport</span>(<span class="title class_ inherited__">Callback</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,train_data=(<span class="params"></span>),validation_data=(<span class="params"></span>)</span>):</span><br><span class="line">        <span class="built_in">super</span>(Callback,self).__init__()</span><br><span class="line"></span><br><span class="line">        self.X_train,self.y_train=train_data</span><br><span class="line">        self.train_precision_scores=[]</span><br><span class="line">        self.train_recall_scores=[]</span><br><span class="line">        self.train_f1_scores=[]</span><br><span class="line"></span><br><span class="line">        self.X_val,self.y_val=validation_data</span><br><span class="line">        self.val_precision_scores=[]</span><br><span class="line">        self.val_recall_scores=[]</span><br><span class="line">        self.val_f1_scores=[]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_epoch_end</span>(<span class="params">self,epoch,logs=&#123;&#125;</span>):</span><br><span class="line">        train_predictions=np.<span class="built_in">round</span>(self.model.predict(self.X_train,verbose=<span class="number">0</span>))</span><br><span class="line">        train_precision=precision_score(self.y_train,train_predictions,average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        train_recall=recall_score(self.y_train,train_predictions,average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        train_f1=f1_score(self.y_train,train_predictions,average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        self.train_precision_scores.append(train_precision)</span><br><span class="line">        self.train_recall_scores.append(train_recall)</span><br><span class="line">        self.train_f1_scores.append(train_f1)</span><br><span class="line"></span><br><span class="line">        val_predictions = np.<span class="built_in">round</span>(self.model.predict(self.X_val, verbose=<span class="number">0</span>))</span><br><span class="line">        val_precision = precision_score(self.y_val, val_predictions, average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        val_recall = recall_score(self.y_val, val_predictions, average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        val_f1 = f1_score(self.y_val, val_predictions, average=<span class="string">&#x27;macro&#x27;</span>)</span><br><span class="line">        self.val_precision_scores.append(val_precision)        </span><br><span class="line">        self.val_recall_scores.append(val_recall)        </span><br><span class="line">        self.val_f1_scores.append(val_f1)</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\nEpoch: &#123;&#125; - Training Precision: &#123;:.6&#125; - Training Recall: &#123;:.6&#125; - Training F1: &#123;:.6&#125;&#x27;</span>.<span class="built_in">format</span>(epoch + <span class="number">1</span>, train_precision, train_recall, train_f1))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;Epoch: &#123;&#125; - Validation Precision: &#123;:.6&#125; - Validation Recall: &#123;:.6&#125; - Validation F1: &#123;:.6&#125;&#x27;</span>.<span class="built_in">format</span>(epoch + <span class="number">1</span>, val_precision, val_recall, val_f1))  </span><br></pre></td></tr></table></figure>
+
+<p>·使用模型<br>这里用BERT，参考代码如下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">bert_layer = hub.KerasLayer(<span class="string">&#x27;https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/1&#x27;</span>, trainable=<span class="literal">True</span>)</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">·训练过程的集成  </span><br><span class="line">在这个类里，需要实现以下几个函数：（通用于NLP任务）  </span><br><span class="line"><span class="number">1.</span> init-初始化   </span><br><span class="line">在此确定使用的模型类型（在这个具体例子里还要包括tokenizer等）、一些超参数，以及词汇文件。</span><br><span class="line"><span class="number">2.</span> encode-文本预处理（编码）</span><br><span class="line">需要作几个常规的操作：tokenize，加上特殊符号，填充到统一长度，加上mask和segment_id（属于第几段）。</span><br><span class="line"><span class="number">3.</span> build_model-建立模型</span><br><span class="line">在这里用到BERT，去对encode的结果做embedding.  </span><br><span class="line">定义BERT模型，包括其类型、优化器等。然后model.<span class="built_in">compile</span>。  </span><br><span class="line">核心代码：  </span><br><span class="line">```python</span><br><span class="line">pooled_output, sequence_output = self.bert_layer([input_word_ids, input_mask, segment_ids])   </span><br><span class="line">        clf_output = sequence_output[:, <span class="number">0</span>, :]</span><br><span class="line">        out = Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>)(clf_output)</span><br><span class="line">        </span><br><span class="line">        model = Model(inputs=[input_word_ids, input_mask, segment_ids], outputs=out)</span><br><span class="line">        optimizer = SGD(learning_rate=self.lr, momentum=<span class="number">0.8</span>)</span><br><span class="line">        model.<span class="built_in">compile</span>(loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>, optimizer=optimizer, metrics=[<span class="string">&#x27;accuracy&#x27;</span>])</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>train-训练过程<br>输入为X，即一个batch。对这个batch要经过k-fold分割、encode，然后传给model去fit，其中指定callback为之前定义的metrics.<br>核心代码：  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># Callbacks</span></span><br><span class="line">metrics = ClassificationReport(train_data=(X_trn_encoded, y_trn), validation_data=(X_val_encoded, y_val))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Model</span></span><br><span class="line">model = self.build_model()        </span><br><span class="line">model.fit(X_trn_encoded, y_trn, validation_data=(X_val_encoded, y_val), callbacks=[metrics], epochs=self.epochs, batch_size=self.batch_size)</span><br></pre></td></tr></table></figure></li>
+<li>plot-绘图（可选）</li>
+<li>predict-测试集上的预测<br>同样地对输入进行encode,然后通过模型得到pred。注意如果有多个模型，要对它们输出的结果取个平均。  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X_test_encoded = self.encode(X[<span class="string">&#x27;text_cleaned&#x27;</span>].<span class="built_in">str</span>.lower())</span><br><span class="line">y_pred = np.zeros((X_test_encoded[<span class="number">0</span>].shape[<span class="number">0</span>], <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> model <span class="keyword">in</span> self.models:</span><br><span class="line">    y_pred += model.predict(X_test_encoded) / <span class="built_in">len</span>(self.models)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> y_pred</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>搞笑的是最后竟然跑不通。。好像是tf版本原因（跪）  </p>
+<p>·生成提交的方式<br>可以直接读模板，修改target即可。代码：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">y_pred=clf.predict(df_test)</span><br><span class="line">model_submission=pd.read_csv(<span class="string">&#x27;/kaggle/input/nlp-getting-started/sample_submission.csv&#x27;</span>)</span><br><span class="line">model_submission[<span class="string">&#x27;target&#x27;</span>]=np.<span class="built_in">round</span>(y_pred).astype(<span class="string">&#x27;int&#x27;</span>)</span><br><span class="line">model_submission.to_csv(<span class="string">&#x27;model_submission.csv&#x27;</span>,index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<p>总结一下。<br>简单的NLP问题的处理方式：  </p>
+<ol>
+<li>分析情境。可视化查看文本的特征、分布。有什么能够可视化的因素会影响到分类（等任务）的结果？比如词频（ngram）、元特征。  </li>
+<li>错误修正。包括原文本中比较脏的内容，需要文本清理，以及标注错误等问题。  </li>
+<li>考虑embedding方式。词汇从哪里来？  </li>
+<li>建立metrics，选择模型。  </li>
+<li>训练过程集成化。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/22/Store_Sales/" rel="prev" title="Kaggle- Store Sales - Time Series Forecasting">
+                  <i class="fa fa-angle-left"></i> Kaggle- Store Sales - Time Series Forecasting
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/06/Bags_of_Popcorn/" rel="next" title="Kaggle-Bag of Words Meets Bag of Popcorn">
+                  Kaggle-Bag of Words Meets Bag of Popcorn <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+

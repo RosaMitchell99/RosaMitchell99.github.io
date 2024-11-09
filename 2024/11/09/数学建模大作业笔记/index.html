@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.20.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"hide","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="开搞！ 复现的文章：Vision-Language Pre-Training for Multimodal Aspect-Based Sentiment Analysis(VLP-MABSA)    11.9今天做MVSA-multi数据集处理。下载之后，按照规则把它的标签确定。代码：   123456789101112131415161718192021222324252627282930313">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ikuyo!">
+<meta property="og:url" content="http://example.com/2024/11/09/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%A4%A7%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="ikuyo!">
+<meta property="og:description" content="开搞！ 复现的文章：Vision-Language Pre-Training for Multimodal Aspect-Based Sentiment Analysis(VLP-MABSA)    11.9今天做MVSA-multi数据集处理。下载之后，按照规则把它的标签确定。代码：   123456789101112131415161718192021222324252627282930313">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-09T06:36:23.484Z">
+<meta property="article:modified_time" content="2024-11-09T06:38:23.446Z">
+<meta property="article:author" content="Night Leila">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/11/09/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%A4%A7%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/11/09/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%A4%A7%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/","path":"2024/11/09/数学建模大作业笔记/","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> | ikuyo!</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ikuyo!</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about-me"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于我</a></li><li class="menu-item menu-item-literature"><a href="/categories/literature/" rel="section"><i class="lit fa-fw"></i>书评</a></li><li class="menu-item menu-item-anime"><a href="/anime/" rel="section"><i class="anime fa-fw"></i>动漫</a></li><li class="menu-item menu-item-blogs"><a href="/categories/blogs/" rel="section"><i class="blogs fa-fw"></i>博客</a></li><li class="menu-item menu-item-cats"><a href="/categories/cats/" rel="section"><i class="cats fa-fw"></i>来点猫猫</a></li><li class="menu-item menu-item-poems"><a href="/categories/poems/" rel="section"><i class="poems fa-fw"></i>原创诗歌</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Night Leila"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Night Leila</p>
+  <div class="site-description" itemprop="description">一蓑烟雨任平生。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="mailto:3354474428@gmail.com" title="E-Mail → mailto:3354474428@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/11/09/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%A4%A7%E4%BD%9C%E4%B8%9A%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Night Leila">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ikuyo!">
+      <meta itemprop="description" content="一蓑烟雨任平生。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | ikuyo!">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-11-09 14:36:23 / 修改时间：14:38:23" itemprop="dateCreated datePublished" datetime="2024-11-09T14:36:23+08:00">2024-11-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>开搞！</p>
+<p>复现的文章：Vision-Language Pre-Training for Multimodal Aspect-Based Sentiment Analysis(VLP-MABSA)   </p>
+<p>11.9<br>今天做MVSA-multi数据集处理。<br>下载之后，按照规则把它的标签确定。代码：  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">vote</span>(<span class="params">l1,l2</span>):</span><br><span class="line">    p=<span class="number">0</span></span><br><span class="line">    ne=<span class="number">0</span></span><br><span class="line">    n=<span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> l1 == <span class="string">&#x27;positive&#x27;</span>:</span><br><span class="line">        p+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> l1 == <span class="string">&#x27;neutral&#x27;</span>:</span><br><span class="line">        ne+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        n+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> l2 == <span class="string">&#x27;positive&#x27;</span>:</span><br><span class="line">        p+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">elif</span> l2 == <span class="string">&#x27;neutral&#x27;</span>:</span><br><span class="line">        ne+=<span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        n+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> p == <span class="number">2</span> <span class="keyword">or</span> (p == <span class="number">1</span> <span class="keyword">and</span> ne == <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;positive&#x27;</span></span><br><span class="line">    <span class="keyword">elif</span> (ne == <span class="number">1</span> <span class="keyword">and</span> n == <span class="number">1</span>) <span class="keyword">or</span> n == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;negative&#x27;</span></span><br><span class="line">    <span class="keyword">elif</span> ne == <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;neutral&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;remove&#x27;</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">columns=[<span class="string">&#x27;ID&#x27;</span>,<span class="string">&#x27;label&#x27;</span>]</span><br><span class="line">file=<span class="string">&#x27;labelResultAll.txt&#x27;</span></span><br><span class="line">df=pd.DataFrame(columns=columns)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file,<span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="built_in">next</span>(f)</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        data=line.strip().split()</span><br><span class="line">        v1=data[<span class="number">1</span>].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        v2=data[<span class="number">2</span>].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        v3=data[<span class="number">3</span>].split(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line"></span><br><span class="line">        l1=vote(v1[<span class="number">0</span>],v1[<span class="number">1</span>])</span><br><span class="line">        l2=vote(v2[<span class="number">0</span>],v2[<span class="number">1</span>])</span><br><span class="line">        l3=vote(v3[<span class="number">0</span>],v3[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">if</span> l1 == <span class="string">&#x27;remove&#x27;</span> <span class="keyword">or</span> l2 == <span class="string">&#x27;remove&#x27;</span> <span class="keyword">or</span> l3 == <span class="string">&#x27;remove&#x27;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        labels=[l1,l2,l3]</span><br><span class="line">        label_counts=Counter(labels)</span><br><span class="line">        correct_labels=[label <span class="keyword">for</span> label,count <span class="keyword">in</span> label_counts.items() <span class="keyword">if</span> count&gt;=<span class="number">2</span>]</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(correct_labels) &gt;=<span class="number">1</span>:</span><br><span class="line">            row = pd.DataFrame([[data[<span class="number">0</span>],correct_labels[<span class="number">0</span>]]], columns=columns)</span><br><span class="line">            df = pd.concat([df, row], ignore_index=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">df.to_csv(<span class="string">&#x27;mvsa.csv&#x27;</span>,index=<span class="literal">False</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我以前不常用collections来计数。这里学到了。<br>得到mvsa.csv用作数据集。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/11/08/%E7%AC%AC%E5%8D%81%E4%B8%80%E7%AB%99/" rel="prev" title="《第十一站——写给这世界的一封情书》[加]艾米丽·圣约翰·曼德尔">
+                  <i class="fa fa-angle-left"></i> 《第十一站——写给这世界的一封情书》[加]艾米丽·圣约翰·曼德尔
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+</body>
+</html>
+<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
